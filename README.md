@@ -8,7 +8,7 @@ From git:
 ```bash
 pip install git+https://github.com/elitrycraft/bedrockprotopy.git
 ```
-From PyPi:
+From PyPI:
 ```bash
 pip install bedrockprotopy
 ```
