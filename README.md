@@ -1,4 +1,4 @@
-# Bedrock Protocol Python (bedrockprotopy)
+l# Bedrock Protocol Python (bedrockprotopy)
 
 Python implementation of Minecraft Bedrock Edition protocol - ping servers, connect clients, and analyze packets.
 
@@ -6,7 +6,7 @@ Python implementation of Minecraft Bedrock Edition protocol - ping servers, conn
 
 For development version:
 ```bash
-pip install git+https://github.com/yourusername/bedrockprotopy.git
+pip install git+https://github.com/elitrycraft/bedrockprotopy.git
 ```
 
 ## 🚀 Current Status
