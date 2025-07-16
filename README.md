@@ -29,10 +29,24 @@ pip install git+https://github.com/elitrycraft/bedrockprotopy.git
 
 ### Basic Server Ping
 ```python
-from bedrockprotopy import ping_server
+# import library
+import bedrockprotopy
 
-response = ping_server("play.example.com", 19132)
-print(f"Server: {response['motd_line1']}")
-print(f"Version: {response['version']}")
-print(f"Players: {response['online_players']}/{response['max_players']}")
+# ping local server
+result = bedrockprotopy.ping(host="minescar.com", port=19132, timeout=5)
+
+# print a result
+print("Raw response:")
+print(result["raw_response"])
+print("")
+print(f"""
+server info:
+
+motd_line1: {result.get('motd_line1')}
+motd_line2: {result.get('motd_line2')}
+protocol: {result.get('protocol')}
+version: {result.get('version')}
+online: {result.get('online_players')}
+max_players: {result.get('max_players')}
+""")
 ```
