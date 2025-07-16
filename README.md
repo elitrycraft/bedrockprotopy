@@ -14,16 +14,12 @@ pip install git+https://github.com/elitrycraft/bedrockprotopy.git
 ### ✅ Implemented
 - Full server ping functionality
 - Server response parsing (MOTD, version, player count)
-- Basic connection handshake
 
 ### 🛠 In Progress
-- Packet construction system
-- Connection stability improvements
-
-### 📅 Planned
+- Packet send
+- Player client functions
 - Microsoft authentication
-- Full client implementation
-- World interaction
+- World functions
 
 ## 💻 Usage Examples
 
