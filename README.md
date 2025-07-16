@@ -4,9 +4,13 @@ Python implementation of Minecraft Bedrock Edition protocol - ping servers, conn
 
 ## 📦 Installation
 
-For development version:
+From git:
 ```bash
 pip install git+https://github.com/elitrycraft/bedrockprotopy.git
+```
+From PyPi:
+```bash
+pip install bedrockprotopy
 ```
 
 ## 🚀 Current Status
