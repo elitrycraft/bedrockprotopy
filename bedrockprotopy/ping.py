@@ -30,7 +30,7 @@ def ping(host="", port=19132, timeout=5) -> dict:
         offset += 16
 
         if magic != MAGIC:
-            raise ValueError("Неверные Magic-байты")
+            raise ValueError("Invalid Magic Bytes")
 
         str_len = struct.unpack('>H', data[offset:offset+2])[0]
         offset += 2
