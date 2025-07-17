@@ -3,15 +3,11 @@ import struct
 import time
 
 def ping(host="", port=19132, timeout=5) -> dict:
-    """
-    Улучшенная версия пинга Bedrock сервера с обработкой неполных ответов
-    """
     MAGIC = bytes.fromhex("00ffff00fefefefefdfdfdfd12345678")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.settimeout(timeout)
 
     try:
-        # Формируем Unconnected Ping
         ping_packet = (
             b'\x01'  # Packet ID
             + struct.pack('>Q', int(time.time() * 1000))  # Timestamp
@@ -20,13 +16,11 @@ def ping(host="", port=19132, timeout=5) -> dict:
         )
         sock.sendto(ping_packet, (host, port))
 
-        # Получаем ответ
         data, _ = sock.recvfrom(4096)
         
         if data[0] != 0x1C:
-            raise ValueError("Неверный ID ответного пакета")
+            raise ValueError("Invalid response packet ID")
 
-        # Парсим базовые поля
         offset = 1
         server_timestamp = struct.unpack('>Q', data[offset:offset+8])[0]
         offset += 8
@@ -38,20 +32,17 @@ def ping(host="", port=19132, timeout=5) -> dict:
         if magic != MAGIC:
             raise ValueError("Неверные Magic-байты")
 
-        # Читаем строку с информацией
         str_len = struct.unpack('>H', data[offset:offset+2])[0]
         offset += 2
         server_info = data[offset:offset+str_len].decode('utf-8').split(';')
         raw_response = ";".join(server_info)
 
-        # Базовый словарь с информацией
         result = {
             "latency_ms": int(time.time() * 1000) - server_timestamp,
             "raw_response": raw_response,
             "server_guid": server_guid
         }
 
-        # Пытаемся извлечь стандартные поля
         try:
             result.update({
                 "edition": server_info[0] if len(server_info) > 0 else "Unknown",
@@ -62,9 +53,8 @@ def ping(host="", port=19132, timeout=5) -> dict:
                 "max_players": int(server_info[5]) if len(server_info) > 5 and server_info[5].isdigit() else 0,
             })
         except Exception as e:
-            print(f"Ошибка при разборе стандартных полей: {e}")
+            print(f"Error parsing standard fields: {e}")
 
-        # Дополнительные поля (могут отсутствовать)
         if len(server_info) > 6:
             result["server_id"] = server_info[6]
         if len(server_info) > 7:
@@ -79,10 +69,10 @@ def ping(host="", port=19132, timeout=5) -> dict:
         return result
 
     except socket.timeout:
-        print("Сервер не ответил в течение заданного времени.")
+        print("The server did not respond within the specified time.")
         return None
     except Exception as e:
-        print(f"Ошибка при запросе: {e}")
+        print(f"Request error: {e}")
         return None
     finally:
         sock.close()
