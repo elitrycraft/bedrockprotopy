@@ -33,7 +33,7 @@ pip install bedrockprotopy
 import bedrockprotopy
 
 # ping local server
-result = bedrockprotopy.ping(host="minescar.com", port=19132, timeout=5)
+result = bedrockprotopy.ping(host="127.0.0.1", port=19132, timeout=5)
 
 # print a result
 print("Raw response:")
