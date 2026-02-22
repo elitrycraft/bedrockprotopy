@@ -1,6 +1,7 @@
 import socket
 import struct
 import time
+import packet
 
 def ping(host="", port=19132, timeout=5) -> dict:
     MAGIC = bytes.fromhex("00ffff00fefefefefdfdfdfd12345678")
@@ -76,3 +77,4 @@ def ping(host="", port=19132, timeout=5) -> dict:
         return None
     finally:
         sock.close()
+
